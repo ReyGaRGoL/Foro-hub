@@ -1,5 +1,7 @@
 package com.Forohub.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Forohub.controller.infra.security.DatosJwtToken;
-import com.Forohub.controller.infra.security.TokenService;
+import com.Forohub.infra.security.DatosJwtToken;
+import com.Forohub.infra.security.TokenService;
 import com.Forohub.domain.usuario.DatosAutenticacionUsuario;
 import com.Forohub.domain.usuario.Usuario;
 
@@ -26,7 +28,7 @@ public class AutenticacionController {
 	private TokenService tokenService;
 	
 	@PostMapping
-	public ResponseEntity autenticar(@RequestBody DatosAutenticacionUsuario datosAutenticacionUsuario) {
+	public ResponseEntity autenticar(@RequestBody @Valid DatosAutenticacionUsuario datosAutenticacionUsuario) {
 		Authentication authToken = new UsernamePasswordAuthenticationToken(datosAutenticacionUsuario.correo(), datosAutenticacionUsuario.contraseña());
 		var usuarioAutenticado = authenticationManager.authenticate(authToken);
 		

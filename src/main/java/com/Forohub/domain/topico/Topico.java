@@ -39,14 +39,42 @@ public class Topico {
 	private boolean activo;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idUsuario",referencedColumnName = "id")
+	@JoinColumn(name = "id_Usuario",referencedColumnName = "id")
 	private Usuario usuario;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idCurso",referencedColumnName = "id")
+	@JoinColumn(name = "id_Curso",referencedColumnName = "id")
 	private Curso curso;
 	
 	@OneToMany(mappedBy = "topico")
-	private List<Respuesta> respuestas; 
+	private List<Respuesta> respuestas;
 
+
+
+
+	public Topico(DatosTopico datosTopico, Curso curso, Usuario usuario) {
+
+		this.titulo= datosTopico.titulo();
+		this.mensaje= datosTopico.mensaje();
+		this.fechaCreacion=LocalDateTime.now();
+		this.activo=true;
+		this.curso=curso;
+		this.usuario=usuario;
+	}
+
+	public void desactivarTopico() {
+		this.activo=false;
+	}
+
+	public void actualizarDatos(DatosActualizarTopico datosActualizarTopico) {
+
+		if (datosActualizarTopico.titulo()!=null) {
+			this.titulo=datosActualizarTopico.titulo();
+		}
+
+		if (datosActualizarTopico.mensaje()!=null) {
+			this.mensaje=datosActualizarTopico.mensaje();
+		}
+
+	}
 }

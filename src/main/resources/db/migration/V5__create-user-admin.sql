@@ -1,0 +1,1 @@
+insert into usuario (nombre,correo,contraseña) values ("admin","admin@forohub.com","$2a$12$zUJZwQIXRrmXxQLwkxaS2.I09BH4fglKaHy0S3SKl.sewIdwqlSBC");
